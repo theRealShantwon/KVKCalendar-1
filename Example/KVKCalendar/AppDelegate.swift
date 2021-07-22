@@ -7,6 +7,7 @@
 //
 
 import UIKit
+let mainApp = UIApplication()
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -15,9 +16,19 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         window = UIWindow(frame: UIScreen.main.bounds)
+        mainApp = application
         let navVC = UINavigationController(rootViewController: ViewController())
         navVC.isNavigationBarHidden = false
         navVC.navigationBar.isTranslucent = false
+        
+        if #available(iOS 15.0, *) {
+            let appearance = UINavigationBarAppearance()
+            appearance.configureWithDefaultBackground()
+            navVC.navigationBar.standardAppearance = appearance
+            navVC.navigationBar.scrollEdgeAppearance = appearance
+            navVC.navigationBar.compactAppearance = appearance
+        }
+        
         window?.rootViewController = navVC
         window?.makeKeyAndVisible()
         return true
